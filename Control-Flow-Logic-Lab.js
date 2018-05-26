@@ -174,6 +174,10 @@ function isPrime(number){
         }        
     }
 
+    if (number < 2){
+        prime = false;
+    }
+    
     console.log(prime);    
 }
 
