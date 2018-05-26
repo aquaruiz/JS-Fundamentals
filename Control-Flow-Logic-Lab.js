@@ -70,7 +70,7 @@ function oddOrEven(number){
         console.log("invalid");
     } else if(number % 2 == 0) {
         console.log("even");
-    } else if(number % 2 == 1){
+    } else if(Math.abs(number % 2) == 1){
         console.log("odd");
     }
 }
@@ -125,26 +125,40 @@ function makeColorfulNumbers(count){
 function makeChessBoard(count){
     let output = '<div class="chessboard">\n';
     let color = "black";
+    let firstColorRow = "black";
 
     for (let i = 0; i < count; i++) {
         output += "  <div>\n";
+
         for (let j = 0; j < count; j++) {
+            if (j == 0) {
+                firstColorRow = color;
+            }
+
             output += `    <span class="${color}"></span>\n`; 
             color = color == "black" ? "white" : "black";          
         }
 
-        output += "  </div>";    
+        output += "  </div>\n";   
+        
+        if (firstColorRow == color) {
+            color = color == "black" ? "white" : "black";                      
+        }
     }
 
+    output += "  </div>\n";
     console.log(output);    
 }
 
 // makeChessBoard(3);
+// makeChessBoard(2);
 // makeChessBoard(10);
 
 // Binary Logarithm
-function calcBinLog(number){
-    console.log(Math.log2(number));    
+function calcBinLog(numbers){
+    for (let num of numbers) {
+        console.log(Math.log2(num));            
+    }
 }
 
 // calcBinLog(1024);
@@ -163,5 +177,5 @@ function isPrime(number){
     console.log(prime);    
 }
 
-isPrime(7);
-isPrime(88);
+// isPrime(7);
+// isPrime(88);
