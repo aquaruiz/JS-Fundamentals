@@ -76,5 +76,36 @@ function printNums(num){
 
 function figureOutArea(width, height, width2, height2){
     let area1 = width * height;
-    let area2 = 0; 
+    let area2 = width2 * height2;
+    let area3 = Math.min(width, width2) * Math.min(height, height2);
+    
+    let area = area1 + area2 - area3;
+    console.log(area);
 }
+
+// figureOutArea(2, 4, 5, 3)
+// figureOutArea(13, 2, 5, 8)
+
+// Next Day
+function calcNextDay(year, month, day){
+    let date = new Date(year, month-1, day)
+    let oneDay = 24 * 60 * 60 * 1000; // milliseconds in one day
+    let nextDate = new Date(date.getTime() + oneDay)
+    console.log(nextDate.getFullYear() + "-" + (nextDate.getMonth() + 1) + "-" + nextDate.getDate())
+}
+
+// calcNextDay(2016, 9, 30)
+
+// Distance between Points
+function calcDistance(x1, y1, x2, y2){
+    let point1 ={x : x1, y : y1};
+    let point2 ={x : x2, y : y2};
+
+    let distanceX = (point1.x - point2.x) ** 2;
+    let distanceY = (point1.y - point2.y) ** 2;
+    
+    let distance = Math.sqrt(distanceX + distanceY);
+    console.log(distance);
+}
+
+calcDistance(2, 4, 5, 0)
