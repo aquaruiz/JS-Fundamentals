@@ -117,5 +117,202 @@ function cookThatNum ([num, op1, op2, op3, op4, op5]){
 
 // Modify Average
 function modifyAverage(num){
+    function sumDigits(number){
+        let sum = 0;
+        let num = number.toString();
+
+        for (let i = 0; i < num.length; i++) {
+            sum += Number(num[i]);            
+        }
+
+        return sum/num.length;
+    }
+
+    let sumDigs = sumDigits(num);
+
+    while(sumDigs <= 5){
+        num += "9";
+        sumDigs = sumDigits(num);
+    }
     
+    console.log(num);
 }
+
+// modifyAverage(101);
+// modifyAverage(5835);
+
+// Validity Checker
+function checkValidity([x1, y1, x2, y2]){
+    function calcDistance([x1, y1, x2, y2]){
+        let distanceX = Math.abs(x1 - x2);
+        let distanceY = Math.abs(y1 - y2);
+        let distance = Math.sqrt(distanceX ** 2 + distanceY ** 2);
+
+        return distance;
+    }
+
+    if(calcDistance([x1, y1, 0, 0]) % 1 === 0){
+        console.log(`{${x1}, ${y1}} to {0, 0} is valid`);        
+    } else {
+        console.log(`{${x1}, ${y1}} to {0, 0} is invalid`);                
+    }
+
+    if(calcDistance([x2, y2, 0, 0]) % 1 === 0){
+        console.log(`{${x2}, ${y2}} to {0, 0} is valid`);        
+    } else {
+        console.log(`{${x2}, ${y2}} to {0, 0} is invalid`);                
+    }
+
+    if(calcDistance([x1, y1, x2, y2]) % 1 === 0){
+        console.log(`{${x1}, ${y1}} to {${x2}, ${y2}} is valid`);        
+    } else {
+        console.log(`{${x1}, ${y1}} to {${x2}, ${y2}} is invalid`);                
+    }
+}
+
+// checkValidity([3, 0, 0, 4])
+// checkValidity([2, 1, 1, 1])
+
+// Treasure Locator
+function findTreause(coordinates){
+    for (let i = 0; i < coordinates.length; i++) {
+        let col = coordinates[i++];
+        let row = coordinates[i];
+
+        let location = (row >= 0 && row <= 1 && col >= 8 && col <= 9) ? 'Tokelau' 
+            : (row >= 1 && row <= 3 && col >= 1 && col <= 3) ? 'Tuvalu'
+            : (row >= 3 && row <= 6 && col >= 5 && col <= 7) ? 'Samoa'
+            : (row >= 6 && row <= 8 && col >= 0 && col <= 2) ? 'Tonga'
+            : (row >= 7 && row <= 8 && col >= 4 && col <= 9) ? 'Cook'
+            : 'On the bottom of the ocean';
+
+        console.log(location);
+    }
+}
+
+// findTreause([4, 2, 1.5, 6.5, 1, 3]);
+// findTreause(["-10", "0"]);
+
+// Trip Length
+function calcShortestDistance([x1, y1, x2, y2, x3, y3]){
+    function calcDistance(x1, y1, x2, y2){
+        let distanceX = Math.abs(x1 - x2);
+        let distanceY = Math.abs(y1 - y2);
+        let distance = Math.sqrt(distanceX ** 2 + distanceY ** 2);
+
+        return distance;
+    }
+
+    let distanceBtw123 = calcDistance(x1, y1, x2, y2) + calcDistance(x2, y2, x3, y3);
+    let distanceBtw132 = calcDistance(x1, y1, x3, y3) + calcDistance(x3, y3, x2, y2);
+    let distanceBtw213 =  calcDistance(x1, y1, x2, y2) + calcDistance(x1, y1, x3, y3);
+
+    let minDistance = Math.min(distanceBtw123, distanceBtw132, distanceBtw213);
+
+    if (minDistance === distanceBtw123) {
+        console.log(`1->2->3: ${minDistance}`);
+    } else if(minDistance === distanceBtw132){
+        console.log(`1->3->2: ${minDistance}`);        
+    } else if( minDistance === distanceBtw213){
+        console.log(`2->1->3: ${minDistance}`);        
+    } 
+}
+
+// Radio Crystals
+function makeRadioCrystal([thickness, raw]){
+    let cut = (x) => x / 4;
+    let lap = (x) => 0.8 * x;
+    let grind = (x) => x - 20;
+    let etch = (x) => x - 2;
+    let xRay = (x) => x + 1;
+    let transportAndWash = (x) => Math.floor(x);
+
+    let count = 0;
+
+    console.log(`Processing chunk ${raw} microns`);
+    
+    while(cut(raw) >= thickness){
+        raw = cut(raw);
+        count++;
+    }
+
+    if (count > 0) {
+        console.log(`Cut x${count}`);
+        raw = transportAndWash(raw);
+        console.log("Transporting and washing"); 
+        count = 0;      
+    }    
+    
+    while(lap(raw) >= thickness){
+        raw = lap(raw);
+        count++;        
+    }
+
+    if (count > 0) {
+        console.log(`Lap x${count}`);
+        raw = transportAndWash(raw);
+        console.log("Transporting and washing"); 
+        count = 0;      
+    }    
+
+    while(grind(raw) >= thickness){
+        raw = grind(raw);
+        count++;               
+    }
+
+    if (count > 0) {
+        console.log(`Grind x${count}`);
+        raw = transportAndWash(raw);
+        console.log("Transporting and washing"); 
+        count = 0;      
+    }   
+    
+    while(etch(raw) >= thickness){
+        raw = etch(raw);
+        count++;        
+    }
+
+    if (raw > thickness) {
+        raw = etch(raw);
+        count++; 
+    }
+
+    if (count > 0) {
+        console.log(`Etch x${count}`);
+        raw = transportAndWash(raw);
+        console.log("Transporting and washing"); 
+    }    
+    
+    if(raw === thickness){
+        console.log(`Finished crystal ${thickness} microns`);
+    } else {
+        raw = xRay(raw);
+        console.log("X-ray x1");
+        console.log(`Finished crystal ${thickness} microns`);
+    }    
+}
+
+// makeRadioCrystal([1375, 50000])
+
+// DNA Helix
+function printDnaHelix(length){
+    let dna = "ATCGTTAGGG";
+    let current = 0;
+    for (let i = 0; i < length; i++) {
+        if (current === 10) {
+            current = 0;
+        }
+
+        if (i % 4 === 0) {
+            console.log(`**${dna[current++]}${dna[current++]}**`);
+        } else if (i % 4 === 1 || i % 4 === 3){
+            console.log(`*${dna[current++]}--${dna[current++]}*`);            
+        } else {
+            console.log(`${dna[current++]}----${dna[current++]}`);            
+        }
+    }
+}
+
+// printDnaHelix(4);
+// console.log();
+// printDnaHelix(10);
