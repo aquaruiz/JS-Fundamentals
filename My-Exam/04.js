@@ -1,0 +1,5 @@
+function calcTime(input){
+
+}
+
+calcTime()

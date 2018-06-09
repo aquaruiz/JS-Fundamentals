@@ -1,0 +1,5 @@
+function decode(input){
+
+}
+
+decode()
