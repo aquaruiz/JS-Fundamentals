@@ -7,13 +7,16 @@ function investigate(input){
 
     companies = companies.split(delimiter).filter(e => e!== "").map(e => e.trim())
     
+    
     for (const sentence of input) {
         let validSentence = true
+        
         for (const company of companies) {
-            let companyRegex = new RegExp(company, "i")     
-            let hasCompany = companyRegex.test(sentence) 
+            let sentenceToTest = sentence.toLowerCase()   
 
-            if(!hasCompany){
+            let hasCompany = sentenceToTest.indexOf(company) 
+
+            if(hasCompany === -1){
                 validSentence = false
                 break
             }
@@ -50,3 +53,7 @@ investigate(["bulgariatour@, minkatrans@, koftipochivkaltd",
 "Mincho e KoftiPochivkaLTD Tip 123  ve MinkaTrans BulgariaTour",
 "dqdo mraz some text but is KoftiPochivkaLTD MinkaTrans",
 "someone continues as no "])
+investigate(["$$$, $$$$, $$$$$$$",
+"$,",
+"a => e $$ ~ $$$ b  ve onui $$$$$$$ C~",
+"dsa fafasf f asfggg g"])
